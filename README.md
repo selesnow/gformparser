@@ -6,7 +6,9 @@
 Скрипт сбора и форматирования результатов полученных из Google форм.
 
 ## Видео мануал
-Видео инструкцию можно посмотреть по [ссылке](https://www.youtube.com/watch?v=xP8groQlPtk).
+
+Видео инструкцию можно посмотреть по
+[ссылке](https://www.youtube.com/watch?v=xP8groQlPtk).
 
 ## Подготовка
 
@@ -43,7 +45,7 @@ devtools::install_github("selesnow/gformparser")
 `gformparser::parse_form_response()`, по следующему примеру:
 
 ``` r
-gformparser::parse_form_response(
+parse_form_response(
   responses_dox_id = "https://docs.google.com/spreadsheets/d/1GPdwnre6O_BuS3sRJIDBPuhbHtLC28TapLmBxf816TI/edit#gid=1971596860",
   report_dox_id = "https://docs.google.com/spreadsheets/d/1cU5n58qst8g3R-Zm9tze5tqjqlsiCKtViEzDe8rPUgk/edit?resourcekey#gid=44788386"
 )
