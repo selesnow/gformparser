@@ -10,9 +10,6 @@
 Видео инструкцию можно посмотреть по
 [ссылке](https://www.youtube.com/watch?v=xP8groQlPtk).
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/xP8groQlPtk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
-</iframe>
-
 ## Подготовка
 
 Изначально необходимо установить язык R. Перейдите по
@@ -23,7 +20,7 @@
 
 До запуска скрипта, необходимо расшарить докс (с правами редактирования)
 с ответами на форму, и докс в который скрипт загрузит результаты на
-посту сервисного аккаунта
+почту сервисного аккаунта
 `gformparser@webpromo-310616.iam.gserviceaccount.com`.
 
 ![](http://img.netpeak.ua/alsey/1CJM3NY.png)
@@ -48,7 +45,7 @@ devtools::install_github("selesnow/gformparser")
 `gformparser::parse_form_response()`, по следующему примеру:
 
 ``` r
-parse_form_response(
+gformparser::parse_form_response(
   responses_dox_id = "https://docs.google.com/spreadsheets/d/1GPdwnre6O_BuS3sRJIDBPuhbHtLC28TapLmBxf816TI/edit#gid=1971596860",
   report_dox_id = "https://docs.google.com/spreadsheets/d/1cU5n58qst8g3R-Zm9tze5tqjqlsiCKtViEzDe8rPUgk/edit?resourcekey#gid=44788386"
 )
