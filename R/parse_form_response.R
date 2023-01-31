@@ -10,7 +10,7 @@
 parse_form_response <- function(
   responses_dox_id,
   report_dox_id = responses_dox_id,
-  response_sheet_mask = 'Form Responses|Ответы на форму',
+  response_sheet_mask = 'Form Responses|Ответы на форму|Відповіді форми',
   service_key_path = system.file('service.json', package = 'gformparser')
 ) {
 
@@ -21,7 +21,7 @@ parse_form_response <- function(
   cli::cli_alert_info('Load lists of heets')
   # считываем листы
   sheets <- sheet_names(responses_dox_id) %>%
-            .[grepl('Form Responses', .)]
+            .[grepl(response_sheet_mask, .)]
 
   cli::cli_alert_info('Loaded {length(sheets)} sheets')
 
