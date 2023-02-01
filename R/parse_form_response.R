@@ -3,6 +3,7 @@
 #' @param responses_dox_id ID Докса с результатами формы
 #' @param report_dox_id ID Докса в который надо выплюнуть результаты
 #' @param response_sheet_mask Маска имён листов на которых хранятся результаты
+#' @param timestamp_column Вектор с названиями столбцов с отметкой времени, в англ версии Timestamp, в укр версии Позначка часу, в векторе надо перечислить все возможнные варианты
 #' @param service_key_path Путь к файлу сервисного аккаунта
 #'
 #' @return Возвращает информацию о новом доксе.
@@ -11,6 +12,7 @@ parse_form_response <- function(
   responses_dox_id,
   report_dox_id = responses_dox_id,
   response_sheet_mask = 'Form Responses|Ответы на форму|Відповіді форми',
+  timestamp_column = c('Timestamp', 'Позначка часу'),
   service_key_path = system.file('service.json', package = 'gformparser')
 ) {
 
@@ -18,10 +20,12 @@ parse_form_response <- function(
   cli::cli_alert_warning("You need add share both dox to gformparser@webpromo-310616.iam.gserviceaccount.com")
   gs4_auth(path = service_key_path)
 
-  cli::cli_alert_info('Load lists of heets')
+  cli::cli_alert_info('Load lists of sheets')
   # считываем листы
   sheets <- sheet_names(responses_dox_id) %>%
             .[grepl(response_sheet_mask, .)]
+
+  if (length(sheets) == 0 ) stop(str_glue('I cant find sheets with names starts of mask "{response_sheet_mask}"'))
 
   cli::cli_alert_info('Loaded {length(sheets)} sheets')
 
@@ -50,7 +54,7 @@ parse_form_response <- function(
       extract(col = 'Responses', into = 'Responses', regex = "(.*)\\[", remove = TRUE) %>%
       mutate(User = str_squish(User),
         Responses = str_squish(Responses),
-        date = as.Date(Timestamp)) %>%
+        across(any_of(timestamp_column), as.Date)) %>%
       rename_with(to_snake_case) %>%
       mutate(
         response_score = case_when(
